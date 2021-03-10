@@ -30,7 +30,13 @@
 
 #include "protobuf.h"
 
-VALUE cError;
+#include <ruby/version.h>
+
+#include "defs.h"
+#include "map.h"
+#include "message.h"
+#include "repeated_field.h"
+
 VALUE cParseError;
 VALUE cTypeError;
 VALUE c_only_cookie = Qnil;
@@ -113,9 +119,10 @@ void Init_protobuf_c() {
   RepeatedField_register(protobuf);
   Map_register(protobuf);
 
-  cError = rb_const_get(protobuf, rb_intern("Error"));
   cParseError = rb_const_get(protobuf, rb_intern("ParseError"));
+  rb_gc_register_mark_object(cParseError);
   cTypeError = rb_const_get(protobuf, rb_intern("TypeError"));
+  rb_gc_register_mark_object(cTypeError);
 
   rb_define_singleton_method(protobuf, "discard_unknown",
                              Google_Protobuf_discard_unknown, 1);
