@@ -30,13 +30,6 @@
 
 #include "protobuf.h"
 
-#include <ruby/version.h>
-
-#include "defs.h"
-#include "map.h"
-#include "message.h"
-#include "repeated_field.h"
-
 VALUE cParseError;
 VALUE cTypeError;
 VALUE c_only_cookie = Qnil;
